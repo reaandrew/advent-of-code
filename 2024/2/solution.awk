@@ -1,49 +1,24 @@
 {
-    current=""
-    direction=""
-    safe=1
-    for (i = 1; i<= NF; i++){
-        if (current == ""){
-            current = $i
-            continue
-        }
+    safe = 1
+    direction = ""
+    current = $1
 
-        difference = abs(current - $i)
-        if (difference > 3){
-            safe=0
-            print "unsafe - difference too large: " difference
+    for (i = 2; i <= NF; i++) {
+        diff = ($i > current ? $i - current : current - $i)
+
+        if (diff > 3) { print "unsafe - difference too large: " diff; safe = 0; break }
+        if (diff == 0) { print "unsafe - no difference"; safe = 0; break }
+
+        new_dir = ($i < current ? -1 : 1)
+        if (direction && direction != new_dir) {
+            print "unsafe - " (new_dir > 0 ? "increase after decrease" : "decrease after increase")
+            safe = 0
             break
         }
 
-        if (difference == 0){
-            safe=0
-            print "unsafe - no difference"
-            break
-        }
-
-        if (direction == ""){
-            direction = $i < current ? -1 : 1;
-        }
-
-        if (direction == -1 && $i > current){
-            safe=0
-            print "unsafe - increase after decrease"
-            break
-        }
-
-        if (direction == 1 && $i < current){
-            safe=0
-            print "unsafe - decrease after increase"
-            break
-        }
-
-        current=$i
+        direction = new_dir
+        current = $i
     }
 
-    if(safe==1){
-        print "safe"
-    }
-}
-function abs(x) {
-    return (x < 0) ? -x : x
+    if (safe) print "safe"
 }
