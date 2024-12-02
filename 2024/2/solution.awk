@@ -13,6 +13,12 @@
             break
         }
 
+        if (difference == 0){
+            safe=0
+            print "unsafe - no difference"
+            break
+        }
+
         if (direction == ""){
             direction = $i < current ? -1 : 1;
         }

@@ -21,5 +21,9 @@ testReturnsUnsafeWhenIncreaseAfterDecrease(){
   assertEquals  "unsafe - increase after decrease" "$(echo "9 7 6 7 5" | awk -f solution.awk)"
 }
 
+testReturnsUnsafeWhenNoDifference(){
+  assertEquals  "unsafe - no difference" "$(echo "8 6 4 4 1" | awk -f solution.awk)"
+}
+
 # Load shUnit2.
 . shunit2
