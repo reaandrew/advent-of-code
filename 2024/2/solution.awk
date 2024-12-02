@@ -9,7 +9,7 @@
         difference = abs(current - $i)
         if (difference > 3){
             safe=0
-            print "unsafe - difference too large"
+            print "unsafe - difference too large: " difference
             break
         }
 
