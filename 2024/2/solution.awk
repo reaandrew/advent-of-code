@@ -13,6 +13,16 @@
             break
         }
 
+         if (direction == ""){
+            direction = $i < current ? -1 : 1;
+        }
+
+        if (direction == 1 && $i < current){
+            safe=0
+            print "unsafe - decrease after increase"
+            break
+        }
+
         current=$i
     }
 

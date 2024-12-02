@@ -13,5 +13,9 @@ testReturnsUnsafeWithIncreaseOf4(){
   assertEquals "$(echo "9 7 6 2 1" | awk -f solution.awk)" "unsafe - difference too large: 4"
 }
 
+testReturnsUnsafeWhenDecreaseAfterIncrease(){
+  assertEquals "$(echo "1 3 2 4 5" | awk -f solution.awk)" "unsafe - decrease after increase"
+}
+
 # Load shUnit2.
 . shunit2
