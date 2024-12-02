@@ -3,6 +3,7 @@
 
 testReturnsSafe() {
   assertEquals "safe" "$(echo "7 6 4 2 1" | awk -f solution.awk)"
+  assertEquals "safe" "$(echo "1 3 6 7 9" | awk -f solution.awk)"
 }
 
 testReturnUnsafeWithIncreaseOf5(){
