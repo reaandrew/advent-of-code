@@ -1,0 +1,1 @@
+awk -f solution.awk < puzzle_input.txt | grep -c "^safe$"

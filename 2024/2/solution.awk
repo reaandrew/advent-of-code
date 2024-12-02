@@ -1,4 +1,6 @@
 {
+    current=""
+    direction=""
     safe=1
     for (i = 1; i<= NF; i++){
         if (current == ""){

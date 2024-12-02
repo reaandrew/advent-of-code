@@ -26,5 +26,11 @@ testReturnsUnsafeWhenNoDifference(){
   assertEquals  "unsafe - no difference" "$(echo "8 6 4 4 1" | awk -f solution.awk)"
 }
 
+testMultipleLines(){
+  expected_output=$(printf "safe\nunsafe - difference too large: 5")
+  actual_output=$(printf "7 6 4 2 1\n1 2 7 8 9" | awk -f solution.awk)
+  assertEquals "$expected_output" "$actual_output"
+}
+
 # Load shUnit2.
 . shunit2
