@@ -1,18 +1,14 @@
-BEGIN{
-    current=0
-    FS=" "
-}
 {
-    current = 0
+    safe=1
     for (i = 1; i<= NF; i++){
-        if (current == 0){
+        if (current == ""){
             current = $i
-        }else{
-            if (current == $i){
-                print "unsafe"
-                break
-            }
-            current=$i
+            continue
         }
+
+        current=$i
+    }
+    if(safe==1){
+        print "safe"
     }
 }
