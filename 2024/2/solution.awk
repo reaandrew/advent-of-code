@@ -25,7 +25,7 @@ function process(damp){
             safe=0
             if (damp == 1){
                 delete arr[i]
-                $0 = joinArray(arr,NF-1, " ")
+                $0 = joinArray(arr,NF, " ")
                 return process(0)
             }
             print "unsafe - no difference"
@@ -40,10 +40,10 @@ function process(damp){
             safe=0
             if (damp == 1){
                 delete arr[i]
-                $0 = joinArray(arr,NF-1, " ")
+                $0 = joinArray(arr,NF, " ")
                 return process(0)
             }
-            print "unsafe - increase after decrease " $0 " i=" $i
+            print "unsafe - increase after decrease"
             break
         }
 

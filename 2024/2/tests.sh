@@ -38,6 +38,10 @@ testReturnsUnsafeWhenNoDifference(){
   assertEquals  "safe" "$(answer "8 6 4 4 1")"
 }
 
+testReturnsUnsafeWhenMultipleIncreaseAfterDecrease(){
+  assertEquals  "unsafe - increase after decrease" "$(answer "9 7 6 7 5 6")"
+}
+
 testMultipleLines(){
   expected_output=$(printf "safe\nunsafe - difference too large: 5")
   actual_output=$(answer "7 6 4 2 1\n1 2 7 8 9")
