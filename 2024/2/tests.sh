@@ -22,19 +22,19 @@ testReturnsUnsafeWithIncreaseOf4(){
   assertEquals "unsafe - difference too large: 4" "$(answer "9 7 6 2 1")"
 }
 
-testReturnsUnsafeWhenDecreaseAfterIncrease(){
+testReturnsSafeWhenSingleDecreaseAfterIncrease(){
   assertEquals  "safe" "$(answer "1 3 2 4 5")"
 }
 
-testReturnsUnsafeWhenIncreaseAfterDecrease(){
+testReturnsSafeWhenSingleIncreaseAfterDecrease(){
   assertEquals  "safe" "$(answer "9 7 6 7 5")"
 }
 
-testReturnsUnsafeWhenIncreaseAfterDecreaseAtEndOfSequence(){
+testReturnsSafeWhenSingleIncreaseAfterDecreaseAtEndOfSequence(){
   assertEquals  "safe" "$(answer "9 7 6 5 7")"
 }
 
-testReturnsUnsafeWhenNoDifference(){
+testReturnsSafeWhenSingleNoDifference(){
   assertEquals  "safe" "$(answer "8 6 4 4 1")"
 }
 
@@ -44,6 +44,14 @@ testReturnsUnsafeWhenMultipleIncreaseAfterDecrease(){
 
 testReturnsUnsafeWhenMultipleNoDifference(){
   assertEquals  "unsafe - no difference" "$(answer "8 6 4 4 1 1")"
+}
+
+testReturnsUnsafeWhenMultipleDecreaseAfterIncrease(){
+  assertEquals  "unsafe - decrease after increase" "$(answer "1 3 2 4 5 4")"
+}
+
+testReturnsUnsafeWhenSingleDecreaseAfterIncreaseThenNoDifference(){
+    assertEquals  "unsafe - no difference" "$(answer "1 3 2 4 5 5")"
 }
 
 testMultipleLines(){
