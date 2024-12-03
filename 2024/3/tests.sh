@@ -13,5 +13,9 @@ testReturnsSingleMultiple() {
   assertEquals "2024" "$(answer "mul(44,46)")"
 }
 
+testReturnsSumOfMultiples(){
+  assertEquals "2030" "$(answer "mul(44,46),mul(2,3)")"
+}
+
 # Load shUnit2.
 . shunit2
