@@ -1,34 +1,42 @@
 #! /bin/bash
-# file: examples/equality_test.sh
+
+function answer(){
+  printf "%b" "$1" | awk -f solution.awk
+}
+
+function test(){
+  expected=$1
+  input=$2
+}
 
 testReturnsSafe() {
-  assertEquals "safe" "$(echo "7 6 4 2 1" | awk -f solution.awk)"
-  assertEquals "safe" "$(echo "1 3 6 7 9" | awk -f solution.awk)"
+  assertEquals "safe" "$(answer "7 6 4 2 1")"
+  assertEquals "safe" "$(answer  "1 3 6 7 9")"
 }
 
 testReturnUnsafeWithIncreaseOf5(){
-  assertEquals "unsafe - difference too large: 5" "$(echo "1 2 7 8 9" | awk -f solution.awk)"
+  assertEquals "unsafe - difference too large: 5" "$(answer "1 2 7 8 9")"
 }
 
 testReturnsUnsafeWithIncreaseOf4(){
-  assertEquals "unsafe - difference too large: 4" "$(echo "9 7 6 2 1" | awk -f solution.awk)"
+  assertEquals "unsafe - difference too large: 4" "$(answer "9 7 6 2 1")"
 }
 
 testReturnsUnsafeWhenDecreaseAfterIncrease(){
-  assertEquals  "unsafe - decrease after increase" "$(echo "1 3 2 4 5" | awk -f solution.awk)"
+  assertEquals  "unsafe - decrease after increase" "$(answer "1 3 2 4 5")"
 }
 
 testReturnsUnsafeWhenIncreaseAfterDecrease(){
-  assertEquals  "unsafe - increase after decrease" "$(echo "9 7 6 7 5" | awk -f solution.awk)"
+  assertEquals  "unsafe - increase after decrease" "$(answer "9 7 6 7 5")"
 }
 
 testReturnsUnsafeWhenNoDifference(){
-  assertEquals  "unsafe - no difference" "$(echo "8 6 4 4 1" | awk -f solution.awk)"
+  assertEquals  "unsafe - no difference" "$(answer "8 6 4 4 1")"
 }
 
 testMultipleLines(){
   expected_output=$(printf "safe\nunsafe - difference too large: 5")
-  actual_output=$(printf "7 6 4 2 1\n1 2 7 8 9" | awk -f solution.awk)
+  actual_output=$(answer "7 6 4 2 1\n1 2 7 8 9")
   assertEquals "$expected_output" "$actual_output"
 }
 
