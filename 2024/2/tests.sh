@@ -27,7 +27,11 @@ testReturnsUnsafeWhenDecreaseAfterIncrease(){
 }
 
 testReturnsUnsafeWhenIncreaseAfterDecrease(){
-  assertEquals  "unsafe - increase after decrease" "$(answer "9 7 6 7 5")"
+  assertEquals  "safe" "$(answer "9 7 6 7 5")"
+}
+
+testReturnsUnsafeWhenIncreaseAfterDecreaseAtEndOfSequence(){
+  assertEquals  "safe" "$(answer "9 7 6 5 7")"
 }
 
 testReturnsUnsafeWhenNoDifference(){
