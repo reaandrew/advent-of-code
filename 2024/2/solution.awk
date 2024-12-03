@@ -1,4 +1,8 @@
 {
+    process(1)
+}
+
+function process(damp){
     current=""
     direction=""
     safe=1
@@ -33,6 +37,10 @@
 
         if (direction == 1 && $i < current){
             safe=0
+            if (damp == 1){
+                $0 = substr($0, 1, i - 1) substr($0, i + 1)
+                return process(0)
+            }
             print "unsafe - decrease after increase"
             break
         }
@@ -44,6 +52,7 @@
         print "safe"
     }
 }
+
 function abs(x) {
     return (x < 0) ? -x : x
 }

@@ -23,7 +23,7 @@ testReturnsUnsafeWithIncreaseOf4(){
 }
 
 testReturnsUnsafeWhenDecreaseAfterIncrease(){
-  assertEquals  "unsafe - decrease after increase" "$(answer "1 3 2 4 5")"
+  assertEquals  "safe" "$(answer "1 3 2 4 5")"
 }
 
 testReturnsUnsafeWhenIncreaseAfterDecrease(){
