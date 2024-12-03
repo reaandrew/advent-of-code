@@ -1,81 +1,33 @@
+#!/usr/bin/awk -f
 {
-    process(1)
-}
-function process(damp){
-    for (i = 1; i <= NF; i++) {
-        arr[i] = $i
-    }
-    current=""
-    direction=""
-    safe=1
-    for (i = 1; i<= NF; i++){
-        if (current == ""){
-            current = arr[i]
-            continue
-        }
+    n = split($0, levels, " ")
+    process(levels, n)
 
-        difference = abs(current - arr[i])
-        if (difference > 3){
-            safe=0
-            print "unsafe - difference too large: " difference
-            break
-        }
-
-        if (difference == 0){
-            safe=0
-            if (damp == 1){
-                delete arr[i]
-                $0 = joinArray(arr,NF, " ")
-                return process(0)
-            }
-            print "unsafe - no difference"
-            break
-        }
-
-        if (direction == ""){
-            direction = arr[i] < current ? -1 : 1;
-        }
-
-        if (direction == -1 && arr[i] > current){
-            safe=0
-            if (damp == 1){
-                delete arr[i]
-                $0 = joinArray(arr,NF, " ")
-                return process(0)
-            }
-            print "unsafe - increase after decrease"
-            break
-        }
-
-        if (direction == 1 && arr[i] < current){
-            safe=0
-            if (damp == 1){
-                delete arr[i]
-                $0 = joinArray(arr,NF, " ")
-                return process(0)
-            }
-            print "unsafe - decrease after increase"
-            break
-        }
-
-        current=arr[i]
-    }
-
-    if(safe==1){
-        print "safe"
+    for (exclude_pos = 1; exclude_pos <= n; exclude_pos++) {
+        copyArray(levels, n, level_copy, exclude_pos)
+        process(level_copy, n - 1)
     }
 }
 
-function abs(x) {
-    return (x < 0) ? -x : x
-}
-
-function joinArray(arr, n, sep,    i, result) {
-    result = ""
-    for (i = 1; i <= n; i++) {
-        if (i in arr) {
-            result = result (result == "" ? "" : sep) arr[i]
+function copyArray(arr, len, arr_copy, exclude_pos) {
+    delete arr_copy
+    new_pos = 1
+    for (i = 1; i <= len; i++) {
+        if (i != exclude_pos) {
+            arr_copy[new_pos++] = arr[i]
         }
     }
-    return result
+}
+
+function process(arr, len) {
+    printArray(arr, len)
+}
+
+function printArray(arr, len) {
+    line = ""
+    for (i = 1; i <= len; i++) {  # Iterate through indices from 1 to len
+        if (line != "") line = line " " arr[i]
+        else line = arr[i]
+    }
+    print line
 }
