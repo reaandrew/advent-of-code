@@ -22,6 +22,10 @@ testReturnsUnsafeWithIncreaseOf4(){
   assertEquals "unsafe" "$(answer "9 7 6 2 1")"
 }
 
+testReturnsSafeWithSingleBigDifference(){
+  assertEquals "safe" "$(answer "9 7 2 4 3")"
+}
+
 testReturnsSafeWhenSingleDecreaseAfterIncrease(){
   assertEquals  "safe" "$(answer "1 3 2 4 5")"
 }
