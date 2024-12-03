@@ -31,7 +31,7 @@ testReturnsUnsafeWhenIncreaseAfterDecrease(){
 }
 
 testReturnsUnsafeWhenNoDifference(){
-  assertEquals  "unsafe - no difference" "$(answer "8 6 4 4 1")"
+  assertEquals  "safe" "$(answer "8 6 4 4 1")"
 }
 
 testMultipleLines(){
