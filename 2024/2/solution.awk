@@ -1,18 +1,20 @@
 {
     process(1)
 }
-
 function process(damp){
+    for (i = 1; i <= NF; i++) {
+        arr[i] = $i
+    }
     current=""
     direction=""
     safe=1
     for (i = 1; i<= NF; i++){
         if (current == ""){
-            current = $i
+            current = arr[i]
             continue
         }
 
-        difference = abs(current - $i)
+        difference = abs(current - arr[i])
         if (difference > 3){
             safe=0
             print "unsafe - difference too large: " difference
@@ -22,7 +24,8 @@ function process(damp){
         if (difference == 0){
             safe=0
             if (damp == 1){
-                $0 = substr($0, 1, i - 1) substr($0, i + 2)
+                delete arr[i]
+                $0 = joinArray(arr,NF-1, " ")
                 return process(0)
             }
             print "unsafe - no difference"
@@ -30,30 +33,32 @@ function process(damp){
         }
 
         if (direction == ""){
-            direction = $i < current ? -1 : 1;
+            direction = arr[i] < current ? -1 : 1;
         }
 
-        if (direction == -1 && $i > current){
+        if (direction == -1 && arr[i] > current){
             safe=0
             if (damp == 1){
-                $0 = substr($0, 1, i + 2) substr($0, i + 5)
+                delete arr[i]
+                $0 = joinArray(arr,NF-1, " ")
                 return process(0)
             }
-            print "unsafe - increase after decrease"
+            print "unsafe - increase after decrease " $0 " i=" $i
             break
         }
 
-        if (direction == 1 && $i < current){
+        if (direction == 1 && arr[i] < current){
             safe=0
             if (damp == 1){
-                $0 = substr($0, 1, i - 1) substr($0, i + 2)
+                delete arr[i]
+                $0 = joinArray(arr,NF-1, " ")
                 return process(0)
             }
             print "unsafe - decrease after increase"
             break
         }
 
-        current=$i
+        current=arr[i]
     }
 
     if(safe==1){
@@ -63,4 +68,14 @@ function process(damp){
 
 function abs(x) {
     return (x < 0) ? -x : x
+}
+
+function joinArray(arr, n, sep,    i, result) {
+    result = ""
+    for (i = 1; i <= n; i++) {
+        if (i in arr) {
+            result = result (result == "" ? "" : sep) arr[i]
+        }
+    }
+    return result
 }
