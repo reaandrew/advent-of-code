@@ -11,12 +11,18 @@ END {
     asort(list2)
 
     for (i = 1; i <= length(list1); i++){
-        sum += abs(list1[i] - list2[i])
+        sum += list1[i] * getNoOfOccurences(list1[i], list2, NR)
     }
 
     print sum
 }
 
-function abs(x) {
-    return (x < 0) ? -x : x
+function getNoOfOccurences(subject, arr, len){
+    total=0
+    for (pos=0;pos<len;pos++){
+        if (arr[pos] == subject){
+            total++
+        }
+    }
+    return total
 }

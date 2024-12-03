@@ -38,6 +38,8 @@ This one stumped me and regardless of the tests I missed a crucial requirement. 
 ```
 Which in hindsight I interpreted that any instance where the value is increasing after decreasing or vice versa is unsafe; which is incorrect.  It is only unsafe in this example as (like the example says) regardless of which level is removed it is still unsafe.  In other example though this may not be the case.
 
+An AWKy thing which caught me too is arrays.  In AWK these are associative arrays!
+
 After my initial set of attempts which included counting the failures thinking that if I detect more than one failure then it is unsafe otherwise it is safe.  I resorted to brute force, testing each version of the array with a level removed.  Finally, what was also evident was that I got a false sense of confidence from all my tests passing when really I was missing a requirement and in that regard, missing a test which would have shown me a failure.
 
 **NB:** Admission - I only realised there was part 2 of these puzzles on day 3 <sigh>

@@ -32,7 +32,7 @@ function copyArray(arr, len, arr_copy, exclude_pos) {
 
 function process(arr, len    ,i,difference,direction) {
     for (i = 2; i < len; i++){
-        difference = arr[i-1] < arr[i] ? arr[i] - arr[i-1] : arr[i-1] - arr[i];
+        difference = abs(arr[i-1] - arr[i])
 
         if (difference > 3 || difference < 1){
             return 0
@@ -49,4 +49,9 @@ function process(arr, len    ,i,difference,direction) {
         }
     }
     return 1
+}
+
+
+function abs(x) {
+    return (x < 0) ? -x : x
 }
