@@ -1,11 +1,22 @@
 #!/usr/bin/awk -f
 {
     n = split($0, levels, " ")
-    process(levels, n)
-
-    for (exclude_pos = 1; exclude_pos <= n; exclude_pos++) {
-        copyArray(levels, n, level_copy, exclude_pos)
-        process(level_copy, n - 1)
+    safe=0
+    if (process(levels, n) == 1 ){
+        safe = 1
+    }else {
+        for (exclude_pos = 1; exclude_pos <= n; exclude_pos++) {
+            copyArray(levels, n, level_copy, exclude_pos)
+            if (process(level_copy, n) == 1){
+                safe = 1
+                break
+            }
+        }
+    }
+    if (safe == 1){
+        print "safe"
+    }else{
+        print "unsafe"
     }
 }
 
@@ -19,15 +30,23 @@ function copyArray(arr, len, arr_copy, exclude_pos) {
     }
 }
 
-function process(arr, len) {
-    printArray(arr, len)
-}
+function process(arr, len    ,i,difference,direction) {
+    for (i = 2; i < len; i++){
+        difference = arr[i-1] < arr[i] ? arr[i] - arr[i-1] : arr[i-1] - arr[i];
 
-function printArray(arr, len) {
-    line = ""
-    for (i = 1; i <= len; i++) {  # Iterate through indices from 1 to len
-        if (line != "") line = line " " arr[i]
-        else line = arr[i]
+        if (difference > 3 || difference < 1){
+            return 0
+        }
+        if (direction == ""){
+            direction = arr[i] < arr[i-1] ? -1 : 1;
+        }
+        if (direction == -1 && arr[i] > arr[i-1]){
+            return 0
+        }
+
+        if (direction == 1 && arr[i] < arr[i-1]){
+            return 0
+        }
     }
-    print line
+    return 1
 }
