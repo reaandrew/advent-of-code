@@ -63,3 +63,24 @@ $0 = substr($0, RSTART + RLENGTH);
 The requirements still felt like regex could be an easy answer here but the more I delved into it I just couldn't make the required matches. 
 
 I thought I would take a longer approach (which actually felt shorter in the end) of creating a simple lexer to parse each character, build up a string, evaluate and continue.  The solution is pretty tight and I like it.
+
+### Day 9: Disk Fragmenter
+
+Running a little behind due to work commitments but Day 9 had me stumped trying to implement in AWK.  All the tests cases I had passed but when I ran the puzzle input it just wasn't correct and failed for large input sets.
+
+In the end I abandoned the effort for the day and implemented part 1 and 2 in python using a two pointer approach for part 1 and an index approach for the compaction requirements.  This is the approach I tried to use for AWK too but I still cant put my finger on the issue, but I will.
+
+A couple of interesting outputs though:
+
+1. I used the python implementation (which was correct) to help me generate test cases I could trust in order to help me get to the bottom of why my AWK implementation was failing.
+
+2. I found a useful way to test awk functions in isolation which I am going to use in the future.  The approach is to use the '-i (include)' argument for a file and then in the test simply invoke an inline awk string using the include file and then put the test subject invocation inside a BEGIN block e.g.:
+
+```shell
+testUncompress(){
+    assertEquals "00...111...2...333.44.5555.6666.777.888899" "$(awk -i uncompress.awk '
+    BEGIN {
+    print uncompress("2333133121414131402")
+    }')"
+}
+```
